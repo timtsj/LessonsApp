@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_8dp"
+    android:layout_marginBottom="@dimen/margin_8dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/item_lesson_image"
+        android:layout_width="114dp"
+        android:layout_height="62dp"
+        tools:background="@color/colorPrimary" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/item_lesson_icon"
+        android:layout_width="114dp"
+        android:layout_height="62dp"
+        android:padding="@dimen/margin_16dp"
+        tools:src="@drawable/ic_play_arrow_black_24dp" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/item_lesson_visited"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        app:srcCompat="@drawable/ic_done" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/item_lesson_sub_icon_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/item_lesson_image"
+        android:layout_alignEnd="@id/item_lesson_image"
+        android:layout_alignBottom="@id/item_lesson_image"
+        android:layout_marginBottom="4dp"
+        android:gravity="center_horizontal"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="9sp"
+        tools:text="OFFLINE MATERIAL" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/item_lesson_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_16dp"
+        android:layout_toEndOf="@id/item_lesson_image"
+        android:textColor="@color/white"
+        tools:text="Random video" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/item_lesson_sub_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_lesson_title"
+        android:layout_marginStart="@dimen/margin_16dp"
+        android:layout_toEndOf="@id/item_lesson_image"
+        android:drawableStart="@drawable/ic_textsms_24px"
+        android:drawablePadding="@dimen/margin_8dp"
+        android:textColor="@color/blue_grey_800"
+        tools:text="38 Comments" />
+
+</RelativeLayout>

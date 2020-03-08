@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Lessons</string>
+
+    <!--error-->
+    <string name="error_unable_load_data">Не удалось загрузить данные</string>
+    <string name="error_no_internet">Проверьте ваше интернет соединение</string>
+    <string name="error_service_not_available">Сервис временно недоступен</string>
+    <string name="error_unknown">Неизвестная ошибка</string>
+    <string name="retry">Повторить попытку</string>
+</resources>
