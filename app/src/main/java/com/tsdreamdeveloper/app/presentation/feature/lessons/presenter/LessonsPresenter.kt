@@ -28,16 +28,12 @@ class LessonsPresenter @Inject constructor(
             }
             .subscribeOn(schedulers.io())
             .observeOn(schedulers.ui())
-            .doOnSubscribe {
-                viewState.showLoader()
-            }
-            .doAfterTerminate {
-                viewState.hideLoader()
-                viewState.showNextButton(page < MAX_PAGE)
-                viewState.showPrevButton(page > MIN_PAGE)
-            }
+            .doOnSubscribe { viewState.showLoader() }
+            .doAfterTerminate { viewState.hideLoader() }
             .subscribe({
                 viewState.displayLessons(it)
+                viewState.showNextButton(page < MAX_PAGE)
+                viewState.showPrevButton(page > MIN_PAGE)
             }, {
                 errorHandler.handleError(it)
                 viewState.handleError()

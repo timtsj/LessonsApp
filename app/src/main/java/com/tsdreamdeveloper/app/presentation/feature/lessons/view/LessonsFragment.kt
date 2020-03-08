@@ -6,7 +6,6 @@ import android.view.WindowManager
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.tsdreamdeveloper.app.R
 import com.tsdreamdeveloper.app.presentation.base.BaseFragment
-import com.tsdreamdeveloper.app.presentation.base.adapter.model.IAdapterComparableItem
 import com.tsdreamdeveloper.app.presentation.base.adapter.model.IAdapterItem
 import com.tsdreamdeveloper.app.presentation.base.adapter.regular.CompositeAdapter
 import com.tsdreamdeveloper.app.presentation.feature.lessons.adapter.LessonsAdapter
@@ -87,7 +86,9 @@ class LessonsFragment : BaseFragment(), LessonsView {
     }
 
     override fun handleError() {
-        fragment_lessons_retry.setVisible(fragment_lessons_list.getItems<IAdapterComparableItem>().isEmpty())
+        fragment_lessons_retry.setVisible(fragment_lessons_list.getItems<IAdapterItem>().isEmpty())
+        showNextButton(false)
+        showPrevButton(false)
     }
 
     override fun showNextButton(isVisible: Boolean) {
