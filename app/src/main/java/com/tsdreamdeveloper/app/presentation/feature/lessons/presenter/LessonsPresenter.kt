@@ -1,6 +1,7 @@
 package com.tsdreamdeveloper.app.presentation.feature.lessons.presenter
 
 import com.tsdreamdeveloper.app.domain.usecase.lessons.GetAllLessonsUseCase
+import com.tsdreamdeveloper.app.domain.usecase.lessons.ObserveAllLessonsUserCase
 import com.tsdreamdeveloper.app.presentation.base.BasePresenter
 import com.tsdreamdeveloper.app.presentation.feature.lessons.view.LessonsView
 import com.tsdreamdeveloper.app.presentation.mapper.LessonsViewMapper
@@ -10,7 +11,8 @@ import javax.inject.Inject
 @InjectViewState
 class LessonsPresenter @Inject constructor(
     private val lessonsViewMapper: LessonsViewMapper,
-    private val lessonsUseCase: GetAllLessonsUseCase
+    private val getLessonsUseCase: GetAllLessonsUseCase,
+    private val observeAllLessonsUserCase: ObserveAllLessonsUserCase
 ) : BasePresenter<LessonsView>() {
 
     companion object {
@@ -20,23 +22,41 @@ class LessonsPresenter @Inject constructor(
 
     private var currentPage: Int = 1
 
-    fun getLessons(page: Int) {
-        currentPage = page
-        lessonsUseCase.execute(GetAllLessonsUseCase.Param(page))
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+        observeLessons()
+    }
+
+    private fun observeLessons() {
+        observeAllLessonsUserCase.execute(ObserveAllLessonsUserCase.Param)
             .map {
                 lessonsViewMapper.toView(it)
             }
             .subscribeOn(schedulers.io())
             .observeOn(schedulers.ui())
+            .doOnNext {
+                viewState.displayLessons(it)
+            }
+            .subscribe({
+            }, {
+                errorHandler.handleError(it)
+                viewState.handleError()
+            })
+            .also { disposables.add(it) }
+    }
+
+    fun getLessons(page: Int) {
+        currentPage = page
+        getLessonsUseCase.execute(GetAllLessonsUseCase.Param(page))
+            .subscribeOn(schedulers.io())
+            .observeOn(schedulers.ui())
             .doOnSubscribe { viewState.showLoader() }
             .doAfterTerminate { viewState.hideLoader() }
             .subscribe({
-                viewState.displayLessons(it)
                 viewState.showNextButton(page < MAX_PAGE)
                 viewState.showPrevButton(page > MIN_PAGE)
             }, {
                 errorHandler.handleError(it)
-                viewState.handleError()
             })
             .also { disposables.add(it) }
     }

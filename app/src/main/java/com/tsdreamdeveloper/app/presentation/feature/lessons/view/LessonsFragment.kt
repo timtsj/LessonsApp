@@ -70,7 +70,6 @@ class LessonsFragment : BaseFragment(), LessonsView {
 
     override fun displayLessons(items: List<IAdapterItem>) {
         fragment_lessons_list.setItems(items)
-        handleError()
     }
 
     override fun showLoader() {
